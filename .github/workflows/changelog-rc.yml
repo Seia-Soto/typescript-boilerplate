@@ -1,0 +1,40 @@
+name: Changelog RC
+
+on:
+  release:
+    types: [
+      prereleased
+    ]
+
+jobs:
+  write-changelog-rc:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Write changelogs
+        run: yarn changelog
+      - name: Get latest release
+        id: latest_rc_id
+        run: |
+          echo ::set-output name=id::$( \
+            curl \
+              --url "https://api.github.com/repos/${{ github.repository }}/releases/latest" \
+              --header "accept: application/vnd.github.v3+json" \
+              --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
+              -sL | \
+            jq --raw-output '.id'
+          )
+      - name: Update release
+        run: |
+          changelog=$(cat CHANGELOG.md)
+          curl \
+            --request PATCH "https://api.github.com/repos/${{ github.repository }}/releases/${{ steps.latest_local_release.latest_rc_id.id }}" \
+            --header "accept: application/vnd.github.v3+json" \
+            --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
+            --header 'content-type: application/json' \
+            --data @- << EOF {
+              "draft": false,
+              "prerelease": false,
+              "body": ${{ changelog }}
+            }
+            EOF

@@ -5,6 +5,8 @@ A new awesome project! ✨
 ## Table of Contents
 
 - [Getting Started](#getting-started)
+  - [Installation](#installation)
+  - [Scripts](#scripts)
 - [License](#license)
 
 ----
@@ -31,6 +33,16 @@ To start with this project, put following commands:
 ```sh
 yarn
 ```
+
+## Scripts
+
+### `yarn lint`
+
+Runs ESLint, to fix errors attach `--fix` at the end of command.
+
+### `yarn build`
+
+Build this project into single JavaScript file, for configuration please refer [tsconfig.json](/tsconfig.json).
 
 # LICENSE
 
