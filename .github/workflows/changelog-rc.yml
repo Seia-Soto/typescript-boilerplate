@@ -11,6 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Install dependencies
+        run: yarn
       - name: Write changelogs
         run: yarn changelog
       - name: Get latest release
@@ -18,23 +20,26 @@ jobs:
         run: |
           echo ::set-output name=id::$( \
             curl \
-              --url "https://api.github.com/repos/${{ github.repository }}/releases/latest" \
+              --url "https://api.github.com/repos/${{ github.repository }}/releases" \
               --header "accept: application/vnd.github.v3+json" \
               --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
               -sL | \
-            jq --raw-output '.id'
+            jq --raw-output '.[-1].id'
           )
       - name: Update release
         run: |
-          changelog=$(cat CHANGELOG.md)
+          cat << EOF > __rc_data.json
+          {
+            "draft": false,
+            "prerelease": false,
+            "body":"
+          EOF
+          cat CHANGELOG.md | sed -z 's/\n/\\n/g' >> __rc_data.json
+          echo \"} >> __rc_data.json
+          cat __rc_data.json
           curl \
-            --request PATCH "https://api.github.com/repos/${{ github.repository }}/releases/${{ steps.latest_local_release.latest_rc_id.id }}" \
+            --request PATCH "https://api.github.com/repos/${{ github.repository }}/releases/${{ steps.latest_rc_id.outputs.id }}" \
             --header "accept: application/vnd.github.v3+json" \
             --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
             --header 'content-type: application/json' \
-            --data @- << EOF {
-              "draft": false,
-              "prerelease": false,
-              "body": ${{ changelog }}
-            }
-            EOF
+            --data @__rc_data.json
