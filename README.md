@@ -19,6 +19,7 @@ This repository requires following pre-dependencies to be installed:
 - Node.JS LTS RC
 - NPM
 - Yarn
+- Git
 
 Also, this repository includes following utilities:
 
@@ -51,6 +52,10 @@ Runs ESLint, to fix errors attach `--fix` at the end of command.
 ### `yarn build`
 
 Build this project into single JavaScript file, for configuration please refer [tsconfig.json](/tsconfig.json).
+
+### `yarn changelog`
+
+Generates new changelog into CHANGELOG.md file.
 
 # LICENSE
 
