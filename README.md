@@ -33,7 +33,7 @@ Also, this repository includes following utilities:
     - codeql-analysis.yml, when commit pushed, this runs codeql analysis for security.
     - eslint.yml, when commit pushed or PR created, this runs eslint for code style.
   - lock.yml, when issue is determinded as OLD, this locks the issue. (90 days)
-  - no-response.yml, when issue is determined as OLD, this closes the issue. (180 days)
+  - no-response.yml, when issue is determined as OLD, this closes the issue. (28 days)
 
 ## Installation
 
