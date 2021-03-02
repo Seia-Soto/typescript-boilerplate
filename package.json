@@ -1,14 +1,14 @@
 {
   "name": "sample",
   "description": "A new awesome project! ✨",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "main": "dist/index.js",
   "license": "MIT",
   "scripts": {
     "prepare": "yarn build",
     "prepack": "yarn prepare",
     "build": "tsc",
-    "lint": "eslint 'src/**/*.{js,ts,tsx}'",
+    "lint": "eslint 'src/**/*.{js,jsx,ts,tsx}'",
     "changelog": "auto-changelog",
     "postinstall": "husky install",
     "prepublishOnly": "pinst --disable",
@@ -23,11 +23,21 @@
     "typescript": "4.1.5"
   },
   "auto-changelog": {
+    "commitLimit": false,
+    "unreleased": true,
     "issuePattern": "[Ff]ixes #([A-Z]+-\\d+)",
     "breakingPattern": "breaking-change:",
     "hideCredit": true,
     "template": "CHANGELOG_TEMPLATE.hbs",
     "output": "CHANGELOG.md"
+  },
+  "contributingGuide": {
+    "commitTags": {
+      "feat": "Adds new feature",
+      "fix": "Fixes a bug or closes an issue",
+      "docs": "Update documentation",
+      "chore": "Refactoring, adding test stuffs, and everything"
+    }
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "latest",

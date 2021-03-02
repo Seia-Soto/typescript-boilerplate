@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to this project will be documented in this file.
+All changes to this project will be documented.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
@@ -11,33 +11,45 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 {{#each releases}}
   {{#if href}}
-    ## [{{title}}]({{href}}){{#if tag}} - {{isoDate}}{{/if}}
+    ## [{{title}}]({{href}}){{#if tag}} ({{isoDate}}){{/if}}
   {{else}}
-    ## {{title}}{{#if tag}} - {{isoDate}}{{/if}}
+    ### {{title}}{{#if tag}} ({{isoDate}}){{/if}}
   {{/if}}
 
-  {{#if summary}}
-    {{summary}}
-  {{/if}}
+  {{! use feat: or Feat:, feature:, Feature: }}
+  {{#commit-list
+    commits
+    heading='#### Features'
+    message='([Ff]eature: )|([Ff]eat: )'
+  }}
+  * {{subject}} ([`{{shorthash}}`]({{href}}))
+  {{/commit-list}}
 
-  {{#if merges}}
-    ### Merged
+  {{! use fix: or Fix: }}
+  {{#commit-list
+    commits
+    heading='#### Fixes'
+    message='([Ff]ix: )'
+  }}
+  * {{subject}} ([`{{shorthash}}`]({{href}}))
+  {{/commit-list}}
 
-    {{#each merges}}
-      - {{#if commit.breaking}}**Breaking change:** {{/if}}{{message}} {{#if href}}[`#{{id}}`]({{href}}){{/if}}
-    {{/each}}
-  {{/if}}
+  {{! use docs: or Docs: }}
+  {{#commit-list
+    commits
+    heading='#### Documentation'
+    message='([Dd]ocs: )'
+  }}
+  * {{subject}} ([`{{shorthash}}`]({{href}}))
+  {{/commit-list}}
 
-  {{#if fixes}}
-    ### Fixed
-
-    {{#each fixes}}
-      - {{#if commit.breaking}}**Breaking change:** {{/if}}{{commit.subject}}{{#each fixes}} {{#if href}}[`#{{id}}`]({{href}}){{/if}}{{/each}}
-    {{/each}}
-  {{/if}}
-
-  {{#commit-list commits heading='### Commits'}}
-    - {{#if breaking}}**Breaking change:** {{/if}}{{subject}} {{#if href}}[`{{shorthash}}`]({{href}}){{/if}}
+  {{! use chore: or Chore: }}
+  {{#commit-list
+    commits
+    heading='#### Uncategorized'
+    exclude='([Ff]eature: )|([Ff]eat: )|([Ff]ix: )|([Dd]ocs: )'
+  }}
+  * {{subject}} ([`{{shorthash}}`]({{href}}))
   {{/commit-list}}
 
 {{/each}}
