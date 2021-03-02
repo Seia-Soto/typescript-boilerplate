@@ -1,7 +1,7 @@
 {
   "name": "sample",
   "description": "A new awesome project! ✨",
-  "version": "0.0.2",
+  "version": "0.0.1",
   "main": "dist/index.js",
   "license": "MIT",
   "scripts": {
@@ -10,6 +10,7 @@
     "build": "tsc",
     "lint": "eslint 'src/**/*.{js,jsx,ts,tsx}'",
     "release": "standard-version",
+    "release:first": "standard-version --first-release",
     "release:minor": "standard-version --release-as minor",
     "release:patch": "standard-version --release-as patch",
     "release:major": "standard-version --release-as major",
