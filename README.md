@@ -7,7 +7,6 @@ A new awesome project! ✨
 - [Getting Started](#getting-started)
   - [Installation](#installation)
   - [Scripts](#scripts)
-  - []
 - [License](#license)
 
 ----
@@ -27,9 +26,9 @@ Also, this repository includes following utilities:
 - Husky
 - ESLint with Standard.JS (TypeScript support)
 - TypeScript
+- Standard-Version (See CHANGELOG.md)
 - GitHub Actions
   - workflows
-    - changelog-rc.yml, when prerelease created, this updates its body with current changelog.
     - codeql-analysis.yml, when commit pushed, this runs codeql analysis for security.
     - eslint.yml, when commit pushed or PR created, this runs eslint for code style.
   - lock.yml, when issue is determinded as OLD, this locks the issue. (90 days)
@@ -52,10 +51,6 @@ Runs ESLint, to fix errors attach `--fix` at the end of command.
 ### `yarn build`
 
 Build this project into single JavaScript file, for configuration please refer [tsconfig.json](/tsconfig.json).
-
-### `yarn changelog`
-
-Generates new changelog into CHANGELOG.md file.
 
 # LICENSE
 

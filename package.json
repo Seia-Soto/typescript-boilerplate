@@ -11,6 +11,7 @@
     "lint": "eslint 'src/**/*.{js,jsx,ts,tsx}'",
     "release": "standard-version",
     "release:first": "standard-version --first-release",
+    "release:pre": "standard-version --prerelease",
     "release:minor": "standard-version --release-as minor",
     "release:patch": "standard-version --release-as patch",
     "release:major": "standard-version --release-as major",
